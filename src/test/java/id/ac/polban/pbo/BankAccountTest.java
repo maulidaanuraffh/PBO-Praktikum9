@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class BankAccountTest {
@@ -85,4 +84,20 @@ class BankAccountTest {
         acc.withdraw(tarik);
         assertEquals(sisa, acc.getBalance(), 0.001);
     }
+
+    @Test
+    void transfer_targetNull_ditolak() {
+        // Arrange
+        BankAccount sender = new BankAccount("001", "Andi", 100_000);
+
+        // Act + Assert exception
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> sender.transfer(null, 20_000)
+        );
+
+        // Assert saldo tidak berubah
+        assertEquals(100_000, sender.getBalance(), 0.001);
+    }
+    
 }

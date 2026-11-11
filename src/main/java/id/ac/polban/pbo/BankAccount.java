@@ -32,4 +32,11 @@ public class BankAccount {
             throw new InsufficientBalanceException("Saldo tidak mencukupi");
         balance -= amount;
     }
+
+    public void transfer(BankAccount target, double amount) throws InsufficientBalanceException {
+        if (target == null)
+            throw new IllegalArgumentException("Target rekening tidak boleh null");
+        withdraw(amount);
+        target.deposit(amount);
+    }
 }
