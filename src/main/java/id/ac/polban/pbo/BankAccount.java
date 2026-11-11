@@ -10,7 +10,6 @@ public class BankAccount {
             throw new IllegalArgumentException("Nomor rekening wajib diisi");
         if (initialBalance < 0)
             throw new IllegalArgumentException("Saldo awal tidak boleh negatif");
-
         this.accountNumber = accountNumber;
         this.owner = owner;
         this.balance = initialBalance;
@@ -24,5 +23,13 @@ public class BankAccount {
 
     public String getAccountNumber() { return accountNumber; }
     public String getOwner() { return owner; }
-    public double getBalance() { return balance; }
+    public double getBalance() { return balance;}
+
+    public void withdraw(double amount) throws InsufficientBalanceException {
+        if (amount <= 0)
+            throw new IllegalArgumentException("Jumlah penarikan harus lebih dari 0");
+        if (amount > balance)
+            throw new InsufficientBalanceException("Saldo tidak mencukupi");
+        balance -= amount;
+    }
 }
